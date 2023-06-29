@@ -27,6 +27,8 @@ helm install redis redis/ --values $REDIS_VALUES_FILE
 
 if [ "$?" -eq 0 ];
 then
+	sleep 5
+
 	while true
 	do
         	OK_FLAG=1
@@ -36,13 +38,14 @@ then
                 	if [ "$status" != "Running" ]
                 	then
                         	OK_FLAG=0
-                        	break
+				break
                 	fi
         	done
 
         	if [ "$OK_FLAG" -eq 1 ]
         	then
 			helm install guestbook guestbook/ --values $GUESTBOOK_VALUES_FILE
+			break
         	fi
 	done
 fi
