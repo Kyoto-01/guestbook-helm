@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-primary
+  labels:
+    app: redis
+    role: primary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+      role: primary
+  template:
+    metadata:
+      labels:
+        app: redis
+        role: primary
+    spec:
+      containers:
+      - name: redis-primary
+        image: redis:latest
+        ports:
+        - name: redis-server
+          containerPort: 6379
